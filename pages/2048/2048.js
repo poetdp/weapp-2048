@@ -20,13 +20,18 @@ Page({
     userinfo: {}
   },
 
-  //滑动开始
+  /**
+   * 滑动事件
+   */
+  //手指触摸
   start: function (event) {
     var touch = event.touches[0]; //touches数组对象获得屏幕上所有的touch，取第一个touch
     this.data.startPos = { x: touch.pageX, y: touch.pageY, time: new Date() }; //取第一个touch的坐标值
     this.data.direction = 0;
+    console.log('触摸开始');
+    //console.log(event);
   },
-  //移动
+  //手指触摸后移动
   move: function (event) {
     //当屏幕有多个touch或者页面被缩放过，就不执行move操作
     if (event.touches.length > 1 || event.scale && event.scale !== 1) return;
@@ -40,19 +45,25 @@ Page({
       if (Math.abs(x) > Math.abs(y)) { //左右
         if (x > 0) { //右
           this.data.direction = 'right';
+          console.log('向右滑动');
         } else { //左
           this.data.direction = 'left';
+          console.log('向坐滑动');
         }
       } else { //上下
-        if (y > 0) {
+        if (y > 0) { //下
           this.data.direction = 'down';
-        } else {
+          console.log('向下滑动');
+        } else { //上
           this.data.direction = 'up';
+          console.log('向上滑动');
         }
       }
     }
   },
+  //触摸动作结束
   end: function () {
+    console.log('滑动结束');
     var flag = this.gamveOver();
     if (flag == 1) {
       this.setData({
@@ -126,7 +137,10 @@ Page({
     this.randNum();
   },
 
-  randNum: function () {
+  /**
+   * 后台逻辑
+   */
+  randNum: function () { //随机生成一个格子
     var arr = [];
     this.data.mydata.map(function (item, i) {
       if (item == 0) {
@@ -138,7 +152,7 @@ Page({
     var index = arr[Math.floor(Math.random() * arr.length)];
     this.changeData(index, num);
   },
-  mergeMove: function (d1, d2, d3, d4) {
+  mergeMove: function (d1, d2, d3, d4) { //格子的移动、合并操作
     var arr = [d1, d2, d3, d4];
     //合并
     var pre, next;
@@ -180,21 +194,23 @@ Page({
       }
     }
   },
-  changeData: function (index, num) {
+
+  changeData: function (index, num) { //改变页面方格中的数字
     var changedData = {};
     changedData['mydata[' + index + ']'] = num;
 
     this.setData(changedData);
   },
-  gamveOver: function () {
-    //格子满了
-    var temp = [];
+
+  gamveOver: function () { //判断游戏是否结束
+    var temp = []; //临时存放空格子的索引
     var max = 0;
     for (var i = 0; i < this.data.mydata.length; i++) {
       if (this.data.mydata[i] == 0) {
         temp.push(i);
       }
 
+      //寻找最大格子
       if (this.data.mydata[i] > max) {
         max = this.data.mydata[i];
       }
@@ -205,7 +221,7 @@ Page({
       return 1;
     }
 
-    if (temp.length == 0) { //格子满的情况
+    if (temp.length == 0) { //格子满了
       var up, down, left, right;
       for (var i = 0; i < this.data.mydata.length; i++) {
         up = i - 4;
@@ -236,48 +252,48 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })

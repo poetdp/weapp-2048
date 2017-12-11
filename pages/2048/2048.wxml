@@ -1,15 +1,21 @@
 <!--index.wxml-->
-<!-- <view>
+ <view>
   <view class="nickname">
     <image class="userimg" src="{{userinfo.avatarUrl}}"></image>
   </view>
   <view class="nickname">玩家：{{userinfo.nickName}}</view>
-</view> -->
+</view>
+<!-- 方块容器 -->
 <view class="container" bindtouchstart="start" bindtouchmove="move" bindtouchend="end">
   <lable class="item d{{item}}" wx:for="{{mydata}}">
     {{item ? item : ''}}
   </lable>
 </view>
+<!-- <view>
+  <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+  <text class="userinfo-nickname">欢迎玩家 {{userInfo.nickName}}</text>
+</view> -->
+<!-- 提示弹出框 -->
 <modal title="提示" confirm-text="确定" no-cancel hidden="{{gameover.status}}" bindconfirm="restart">
   {{gameover.message}}
 </modal>
