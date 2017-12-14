@@ -10,6 +10,8 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+
+  //点击开始游戏按钮
   clickButtonStart: function() {
     wx.navigateTo({
       url: '../2048/2048',

@@ -1,10 +1,10 @@
 <!--index.wxml-->
- <view>
+ <!-- <view>
   <view class="nickname">
     <image class="userimg" src="{{userinfo.avatarUrl}}"></image>
   </view>
   <view class="nickname">玩家：{{userinfo.nickName}}</view>
-</view>
+</view> -->
 <!-- 方块容器 -->
 <view class="container" bindtouchstart="start" bindtouchmove="move" bindtouchend="end">
   <lable class="item d{{item}}" wx:for="{{mydata}}">
